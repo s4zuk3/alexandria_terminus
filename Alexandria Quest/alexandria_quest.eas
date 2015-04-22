@@ -1,0 +1,9 @@
+// Quest Alexandría. Inicio de Instancia Terminus.
+
+// Variable personal para avance de quest: alexa_q
+
+alexandria,153,176,5	script	NPC1#alexa	49,{
+
+    end;
+
+}
