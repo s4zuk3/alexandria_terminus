@@ -1,5 +1,11 @@
 // Quest Alexandría. Inicio de Instancia Terminus.
 
+// IDs reservadas Quest Alexandria / Terminus
+//60500 - 60600
+
+// IDs reservadas Items de Quest Alexandria / Terminus
+//30250 - 30275
+
 // Variable personal para avance de quest: alexa_q
 
 alexandria,153,176,5	script	NPC1#alexa	49,{
