@@ -45,36 +45,34 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
 
 }
 
-prnt_in,154,176,5	script	Amigo de superviviente#alexa 49,{ //escuela de prontera
+prt_in,154,176,5	script	Amigo de superviviente#alexa 49,{ //escuela de prontera
     if(alexa_q == 1) {
         mes "¿Atacada? ¿Te refieres a Helen? La hemos visitado, pero no nos hablaba, solo decia cosas raras de una sombra. Si quieres visitarla, está en la posada.";
         setquest alexa_q,2;
         close;
     else {
-        mes "Elena ha dejado de venir a clase. La hecho de menos.";    
+        mes "Elena ha dejado de venir a clase. La echo de menos.";    
         close;
     }
 }
 
-alexandria,154,176,5	script	Superviviente#alexa	49,{
+prt_in,154,176,5	script	Superviviente#alexa	49,{ //posada del centro de prontera
 
     set .@name$,"[ ^FF0000Helen^000000 ]";
+    else if(alexa_q == 2) {
     mes .@name$;
-    
-    if(alexa_q == 0)
-    {
-    
+    mes "...";
+    next;
+    mes .@name$;
+    mes "...";    
     }
-    else if(alexa_q == 1)
-    {
-    
-    }
-    else if(alexa_q == 2)
-    {
-    
-    }
-    else if(alexa_q == 3) //ETC
-    {
+    else {
+    mes .@name$;
+    mes "...";
+    next;    
+    mes .@name$;
+    mes "...";    
+    mes "-No parece que vaya a hablarte-";   
     
     }
     close;
