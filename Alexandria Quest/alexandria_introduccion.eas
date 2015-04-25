@@ -28,7 +28,7 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
         mes "¡Sombras! O al menos asi lo describen los que han sobrevivido a los ataques. Han muerto varias personas ya...";
         next;    
         mes .@name$;
-        mes "Me han enviado aquí para investigarlo y encontrar al asesino. Pero no tengo por donde empezar. Visite a los supervivientes, pero el único que ha despertado se encontraba en estado de shock. Pobre niña... Ni siquiera habla con sus amigos del colegio.";
+        mes "Me han enviado aquí para investigarlo y encontrar al asesino. Pero no tengo por donde empezar. Visite ayer a los supervivientes, pero el único que ha despertado se encontraba en estado de shock. Pobre niña... Ni siquiera habla con sus amigos del colegio.";
         setquest alexa_q,1;
         close;    
     }
@@ -37,9 +37,22 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
         mes "Ten cuidado por las noches, parece que es cuando atacan... *Suspiro* Debería ver a esa pequeña de nuevo.";   
         close;   
     }
-    else if(alexa_q == 3) //ETC
-    {
-    
+    else if(alexa_q == 3) {
+        mes .@name$;    
+        mes "¿Como? ¿Has conseguido hablar con la niña?";
+        next;
+        mes .@name$;    
+        mes "Ya veo, asi que eso sucedió... Quizá si puedas servirme de ayuda. Esas "chispas" de las que habló, segúramente sean algún tipo de energía. Si tuviera los materiales, quizá podría construir un dispositivo para rastrear esa energia y descubrir donde se esconden esas sombras. ¿Que dices, me ayudarás?";
+        switch(select("¡Claro! ¿Qué necesitas?:Déjame que lo piense...")) {
+            case 1:
+            mes .@name$;    
+            mes "AYUDA";
+            close;
+            case 2:
+            mes .@name$;    
+            mes "CANCEL";            
+            close;
+        }    
     }
     close;
 
@@ -51,7 +64,7 @@ prt_in,154,176,5	script	Amigo de superviviente#alexa 49,{ //escuela de prontera
         setquest alexa_q,2;
         close;
     else {
-        mes "Elena ha dejado de venir a clase. La echo de menos.";    
+        mes "Helen ha dejado de venir a clase. La echo de menos.";    
         close;
     }
 }
@@ -60,21 +73,64 @@ prt_in,154,176,5	script	Superviviente#alexa	49,{ //posada del centro de prontera
 
     set .@name$,"[ ^FF0000Helen^000000 ]";
     else if(alexa_q == 2) {
-    mes .@name$;
-    mes "...";
-    next;
-    mes .@name$;
-    mes "...";    
+        mes .@name$;
+        mes "...";
+        next;
+        mes .@name$;
+        mes "...";    
+        mes "¿Quien eres?";
+        next;
+        mes "[^00ff00"+strcharinfo(0)+"^000000]";
+        mes "Me llamo "+strcharinfo(0)+" Disculpa, ¿eres tú aquella a la que atacaron?";
+        next;
+        mes .@name$;
+        mes "...si.";    
+        next;
+        mes "[^00ff00"+strcharinfo(0)+"^000000]";
+        mes "¿Podrías contarme lo que sucedió?";
+        next;
+        mes .@name$;
+        mes "...solo recuerdo partes. Era de noche y estaba muy oscuro. Iba por la calle de la iglesia cuando escuche un sonido extraño detras mia. Me di la vuelta y... y..."; 
+        next;
+        mes "[^00ff00"+strcharinfo(0)+"^000000]";
+        mes "¿Que pasó?";
+        next;
+        mes .@name$;
+        mes "Había una sombra ahi. Lo único que recuerdo es que se avalanzó sobre mí... después desperte en casa.";    
+        next;
+        mes "[^00ff00"+strcharinfo(0)+"^000000]";
+        mes "Ya veo... ¿No recuerdas nada más?";
+        next;
+        mes .@name$;
+        mes "Recuerdo las chispas que le salian del suelo... Y Esos ojos... me dan miedo solo recordarlos. ¡Sé que volverá!";
+        mes "-Notas como de sus ojos sale una lágrima-
+        next;
+        mes "[^00ff00"+strcharinfo(0)+"^000000]";
+        mes "Tranquila, no te preocupes. Encontraré esa sombra.";
+        next;
+        mes .@name$;
+        mes "¿D-de verdad lo harás? ¡Gracias!";
+        next;
+        mes "-Será mejor contarle esto a Ansem, quizá él también haya averiguado algo-";
+        setquest alexa_q,3;
+        close;    
+    else if(alexa_q == 9) { 
+        mes .@name$;
+        mes "Dicen que la sombra se fué, ya puedo salir a la calle tranquila"; 
+        close;    
+    }
+    else if(alexa_q > 2) { 
+        mes .@name$;
+        mes "Por favor, encuéntrala. Tengo miedo de salir a la calle, no quiero verla de nuevo."; 
+        close;
     }
     else {
-    mes .@name$;
-    mes "...";
-    next;    
-    mes .@name$;
-    mes "...";    
-    mes "-No parece que vaya a hablarte-";   
-    
+        mes .@name$;
+        mes "....";    
+        next;    
+        mes .@name$;
+        mes "....";    
+        mes "-No parece que vaya a hablarte-";   
+        close;    
     }
-    close;
-
 }
