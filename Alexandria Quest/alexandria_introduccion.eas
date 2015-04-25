@@ -13,16 +13,16 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
     set .@name$,"[ ^FF0000Ansem^000000 ]";
     if(alexa_q == 0) {
         mes .@name$;    
-        mes "Esto no puede seguir asi...";
+        mes "Esto no puede seguir así...";
         next;
         mes "[^00ff00"+strcharinfo(0)+"^000000]";    
-        mes "¿Sucede algo? ¿Puedo ayudar?;
+        mes "¿Sucede algo? ¿Puedo ayudar?";
         next;
         mes .@name$;
         mes "No lo creo aventurero, es más, yo que tu tendría cuidado y no saldría a la calle por las noches. Están habiendo ataques.";  
         next;
         mes "[^00ff00"+strcharinfo(0)+"^000000]";    
-        mes "¿Ataques? ¿De quien?;
+        mes "¿Ataques? ¿De quién?";
         next;    
         mes .@name$;
         mes "¡Sombras! O al menos asi lo describen los que han sobrevivido a los ataques. Han muerto varias personas ya...";
@@ -39,10 +39,10 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
     }
     else if(alexa_q == 3) {
         mes .@name$;    
-        mes "¿Como? ¿Has conseguido hablar con la niña?";
+        mes "¿Cómo? ¿Has conseguido hablar con la niña?";
         next;
         mes .@name$;    
-        mes "Ya veo, asi que eso sucedió... Quizá si puedas servirme de ayuda. Esas "chispas" de las que habló, segúramente sean algún tipo de energía. Si tuviera los materiales, quizá podría construir un dispositivo para rastrear esa energia y descubrir donde se esconden esas sombras. ¿Que dices, me ayudarás?";
+        mes "Ya veo, asi que eso sucedió... Quizá si puedas servirme de ayuda. Esas /"chispas/" de las que habló, segúramente sean algún tipo de energía. Si tuviera los materiales, quizá podría construir un dispositivo para rastrear esa energia y descubrir donde se esconden esas sombras. ¿Qué dices, me ayudarás?";
         switch(select("¡Claro! ¿Qué necesitas?:Déjame que lo piense...")) {
             case 1:
             mes .@name$;    
@@ -69,7 +69,7 @@ prt_in,154,176,5	script	Amigo de superviviente#alexa 49,{ //escuela de prontera
     }
 }
 
-prt_in,154,176,5	script	Superviviente#alexa	49,{ //posada del centro de prontera
+prt_in,154,176,5	script	Helen#alexa	49,{ //posada del centro de prontera
 
     set .@name$,"[ ^FF0000Helen^000000 ]";
     else if(alexa_q == 2) {
@@ -78,7 +78,7 @@ prt_in,154,176,5	script	Superviviente#alexa	49,{ //posada del centro de prontera
         next;
         mes .@name$;
         mes "...";    
-        mes "¿Quien eres?";
+        mes "¿Quién eres?";
         next;
         mes "[^00ff00"+strcharinfo(0)+"^000000]";
         mes "Me llamo "+strcharinfo(0)+" Disculpa, ¿eres tú aquella a la que atacaron?";
@@ -93,7 +93,7 @@ prt_in,154,176,5	script	Superviviente#alexa	49,{ //posada del centro de prontera
         mes "...solo recuerdo partes. Era de noche y estaba muy oscuro. Iba por la calle de la iglesia cuando escuche un sonido extraño detras mia. Me di la vuelta y... y..."; 
         next;
         mes "[^00ff00"+strcharinfo(0)+"^000000]";
-        mes "¿Que pasó?";
+        mes "¿Qué pasó?";
         next;
         mes .@name$;
         mes "Había una sombra ahi. Lo único que recuerdo es que se avalanzó sobre mí... después desperte en casa.";    
