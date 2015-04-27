@@ -29,7 +29,7 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
         next;    
         mes .@name$;
         mes "Me han enviado aquí para investigarlo y encontrar al asesino. Pero no tengo por donde empezar. Visite ayer a los supervivientes, pero el único que ha despertado se encontraba en estado de shock. Pobre niña... Ni siquiera habla con sus amigos del colegio.";
-        setquest alexa_q,1;
+        set alexa_q,1;
         close;    
     }
     else if(alexa_q <= 2) {
