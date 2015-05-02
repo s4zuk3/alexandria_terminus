@@ -8,6 +8,12 @@
 
 // Variable personal para avance de quest: alexa_q
 
+//falta: 
+//- coordenadas de npcs
+//- sprites de npcs
+//- setear waypoints
+//- setear warp to alexandria
+
 prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
     
     set .@name$,"[ ^FF0000Ansem^000000 ]";
@@ -47,10 +53,10 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
             case 1:
                 mes .@name$;    
                 mes "Vamos a ver... Necesito:";
-                mes "250 ^ff0000Used Iron Piece^000000";            
-                mes "100 ^ff0000Solid Iron Plate^000000";            
-                mes "25 ^ff0000Fragment";            
-                mes "y 20 ^ff0000Crystal Fragmets^000000 servirán como alimentación.";
+                mes "250 ^008000Used Iron Piece^000000";            
+                mes "100 ^008000Solid Iron Plate^000000";            
+                mes "25 ^008000Fragment";            
+                mes "y 20 ^008000Crystal Fragmets^000000 servirán como alimentación.";
                 next;    
                 mes .@name$;
                 mes "Empezaré a construirlo en cuanto me traigas todo.";
@@ -72,10 +78,10 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
             next;
             mes .@name$;
             mes "Recuerda, necesito lo siguiente:";
-            mes "250 ^ff0000Used Iron Piece^000000";            
-            mes "100 ^ff0000Solid Iron Plate^000000";            
-            mes "25 ^ff0000Fragment";            
-            mes "y 20 ^ff0000Crystal Fragmets^000000.";
+            mes "250 ^008000Used Iron Piece^000000";            
+            mes "100 ^008000Solid Iron Plate^000000";            
+            mes "25 ^008000Fragment";            
+            mes "y 20 ^008000Crystal Fragmets^000000.";
             close;
         }    
         else {
@@ -88,7 +94,7 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
             delitem 7094,25;
             delitem 7321,20;
             set alexa_q,5;
-			set alexaq_time, gettimetick(2) + 64800;    
+	    set alexaq_time, gettimetick(2) + 64800;    
             close;
         }
     }
@@ -104,9 +110,77 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
             mes .@name$;
             mes "Cuando active el dispositivo, te marcará en el mapa las zonas con energía. Solo debes acercarte a esas zonas e investigar. Si encuentras algo raro o quieres que te vuelva a marcar las zonas, ven a verme.";
             set alexa_q,6;
+            viewpoint 1,30,40,1,0xFF0000; //plaza norte
+            viewpoint 1,40,50,1,0xFF0000; //floristeria suroeste
+            viewpoint 1,50,60,1,0xFF0000; //iglesia y sombra
+            viewpoint 1,60,70,1,0xFF0000; //muñecos de entrenamiento
             close;
         }
-    }    
+    }
+    else if(alexa_q == 6) {
+        mes .@name$;
+        mes "Te volveré a marcar las zonas. Avísame si encuentras algo.";
+        viewpoint 1,30,40,1,0xFF0000; //plaza norte
+        viewpoint 1,40,50,2,0xFF0000; //floristeria suroeste
+        viewpoint 1,50,60,3,0xFF0000; //iglesia y sombra
+        viewpoint 1,60,70,4,0xFF0000; //muñecos de entrenamiento
+        close;
+    }
+    else if(alexa_q == 7) {
+        mes .@name$;
+        mes "¿Que es eso? ¿Dices que lo tenia la sombra? Déjame examinarlo...";
+        next;
+        mes .@name$;
+        mes "...";
+        next;
+        mes .@name$;
+        mes "...";
+        mes "...";
+        next;
+        mes .@name$;
+        mes "...";
+        mes "...";
+        mes "Imposible...";
+        mes "¡Esto es de Alexandría!";
+        next;
+        mes .@name$;
+        mes "Estos cristales son usadas en esa cuidad como fuente de energia para algunas maquinas, algunos los llaman Cristales de Alma.";
+        next;
+        mes .@name$;
+        mes "¿Acaso estas sombras tienen relación con Alexandría?";
+        next;
+        mes .@name$;
+        mes "...";
+        next;
+        mes .@name$;
+        mes "...";
+        mes "...";
+        next;
+        mes .@name$;
+        mes "...";
+        mes "...";
+        mes "¡Decidido! Nos vamos a Alexandría.";
+        next;
+        mes .@name$;
+        mes "Habla conmigo cuando estes preparado para partir, necesitaré tu ayuda.";
+        set alexa_q,8;
+    }
+    else if(alexa_q == 8) {
+        mes .@name$;
+        mes "¿Estás listo para ir a Alexandría?";
+        switch(select("¡Estoy listo!:Aún no.")) {
+            case 1:
+                mes .@name$;
+                mes "¡Muy bien, allá vamos!";
+                set alexa_q,9;
+                warp "mapname",<x>,<y>;
+                close;
+            case 2:
+                mes .@name$;
+                mes "Ven a verme cuando estes preparado para partir.";
+                close;
+        }
+    }
 }
 
 prt_in,154,176,5	script	Amigo de superviviente#alexa 49,{ //escuela de prontera
@@ -184,4 +258,59 @@ prt_in,154,176,5	script	Helen#alexa	49,{ //posada del centro de prontera
         mes "-No parece que vaya a hablarte-";   
         close;    
     }
+}
+
+prt_in,154,176,5	script	marca1#alexa::marca1	49,{ //plaza norte
+
+OnInIt:
+disablenpc "marca1";
+OnTouch:
+if(alexa_q == 6) {
+    mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
+    viewpoint 2,30,40,1,0xFF0000; //plaza norte
+    close;
+}
+
+prt_in,154,176,5	script	marca1#alexa::marca2	49,{ //floristeria suroeste
+
+OnInIt:
+disablenpc "marca2";
+OnTouch:
+if(alexa_q == 6) {
+    mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
+    viewpoint 2,40,50,2,0xFF0000; //floristeria suroeste
+    close;
+}
+
+prt_in,154,176,5	script	marca1#alexa::marca3	49,{ //iglesia y sombra
+
+OnInIt:
+disablenpc "marca3";
+OnTouch:
+if(alexa_q == 6) {
+    mes "¡Parece que el dispositivo a detectado algo!";
+    viewpoint 2,50,60,3,0xFF0000; //iglesia y sombra
+    next;
+    mes "De repente notas una presencia extraña...";
+    enablenpc "marca3";
+    next;
+    mes "Eso es... ¡¿Una sombra?!";
+    switch(select("Enfrentarla.:Huir.")) {
+    disablenpc "marca3"; 
+    mes "Antes de que puedas hacer nada, la sombra desaparece, dejando caer algo.";
+    next;
+    mes "Decides recoger el objeto, una especie de cristal oscuro, y llevárselo a Ansem.";
+    set alexa_q,7;    
+    close;
+}
+
+prt_in,154,176,5	script	marca1#alexa::marca4	49,{ //muñecos de entrenamiento
+
+OnInIt:
+disablenpc "marca4";
+OnTouch:
+if(alexa_q == 6) {
+    mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
+    viewpoint 2,60,70,4,0xFF0000; //muñecos de entrenamiento
+    close;
 }
