@@ -39,29 +39,80 @@ prontera,153,176,5	script	Ansem#alexa	49,{ //plaza de prontera norte
     }
     else if(alexa_q == 3) {
         mes .@name$;    
-        mes "¿Cómo? ¿Has conseguido hablar con la niña?";
+        mes "¿Cómo? ¡¿Que has conseguido hablar con la niña?!";
         next;
         mes .@name$;    
         mes "Ya veo, asi que eso sucedió... Quizá si puedas servirme de ayuda. Esas /"chispas/" de las que habló, segúramente sean algún tipo de energía. Si tuviera los materiales, quizá podría construir un dispositivo para rastrear esa energia y descubrir donde se esconden esas sombras. ¿Qué dices, me ayudarás?";
         switch(select("¡Claro! ¿Qué necesitas?:Déjame que lo piense...")) {
             case 1:
-            mes .@name$;    
-            mes "AYUDA";
-            close;
+                mes .@name$;    
+                mes "Vamos a ver... Necesito:";
+                mes "250 ^ff0000Used Iron Piece^000000";            
+                mes "100 ^ff0000Solid Iron Plate^000000";            
+                mes "25 ^ff0000Fragment";            
+                mes "y 20 ^ff0000Crystal Fragmets^000000 servirán como alimentación.";
+                next;    
+                mes .@name$;
+                mes "Empezaré a construirlo en cuanto me traigas todo.";
+                set alexa_q,4;
+                close;
             case 2:
-            mes .@name$;    
-            mes "CANCEL";            
-            close;
+                mes .@name$;    
+                mes "Está bien. Vuelve cuando estés preparado.";            
+                close;
         }    
     }
-    close;
-
+    else if(alexa_q == 4) {
+        mes .@name$;
+        mes "¿Ya estás de vuelta? ¿Lo tienes todo? Déjame ver:";
+        next;
+        if(countitem(7319) < 250 || countitem(7507) < 100 || countitem(7094) < 25 || countitem(7321) < 20) {
+            mes .@name$;
+            mes "Esto no es suficiente para el dispositivo, vuelve cuando tengas todo, por favor.";
+            next;
+            mes .@name$;
+            mes "Recuerda, necesito lo siguiente:";
+            mes "250 ^ff0000Used Iron Piece^000000";            
+            mes "100 ^ff0000Solid Iron Plate^000000";            
+            mes "25 ^ff0000Fragment";            
+            mes "y 20 ^ff0000Crystal Fragmets^000000.";
+            close;
+        }    
+        else {
+            mes .@name$;
+            mes "¡Bien, lo tienes todo!";
+            next;
+            mes "Empezaré ya mismo, segúramente termine el dispositivo para mañana. Ven a verme ^ff0000mañana^000000 y empezaremos a rastrear la zona.";
+            delitem 7319,250;
+            delitem 7507,100;
+            delitem 7094,25;
+            delitem 7321,20;
+            set alexa_q,5;
+			set alexaq_time, gettimetick(2) + 64800;    
+            close;
+        }
+    }
+    else if(alexa_q == 5) {
+        if(alexaq_time > gettimetick(2)){
+            mes .@name$;
+            mes "Lo siento, aún no he terminado el dispositivo. Vuelve más tarde.";
+            close;
+        else {
+            mes .@name$;
+            mes "Hola "+strcharinfo(0)+", me alegro de que estes de vuelta. Ya he terminado el dispositivo, ¿te apetece probarlo?";
+            next;    
+            mes .@name$;
+            mes "Cuando active el dispositivo, te marcará en el mapa las zonas con energía. Solo debes acercarte a esas zonas e investigar. Si encuentras algo raro o quieres que te vuelva a marcar las zonas, ven a verme.";
+            set alexa_q,6;
+            close;
+        }
+    }    
 }
 
 prt_in,154,176,5	script	Amigo de superviviente#alexa 49,{ //escuela de prontera
     if(alexa_q == 1) {
         mes "¿Atacada? ¿Te refieres a Helen? La hemos visitado, pero no nos hablaba, solo decia cosas raras de una sombra. Si quieres visitarla, está en la posada.";
-        setquest alexa_q,2;
+        set alexa_q,2;
         close;
     else {
         mes "Helen ha dejado de venir a clase. La echo de menos.";    
@@ -112,7 +163,7 @@ prt_in,154,176,5	script	Helen#alexa	49,{ //posada del centro de prontera
         mes "¿D-de verdad lo harás? ¡Gracias!";
         next;
         mes "-Será mejor contarle esto a Ansem, quizá él también haya averiguado algo-";
-        setquest alexa_q,3;
+        set alexa_q,3;
         close;    
     else if(alexa_q == 9) { 
         mes .@name$;
