@@ -53,7 +53,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
                 mes "250 ^008000Used Iron Piece^000000";            
                 mes "100 ^008000Solid Iron Plate^000000";            
                 mes "25 ^008000Fragment^000000";            
-                mes "y 20 ^008000Crystal Fragmets^000000 servirán como alimentación.";
+                mes "y 20 ^008000Crystal Fragments^000000 servirán como alimentación.";
                 next;    
                 mes .@name$;
                 mes "Empezaré a construirlo en cuanto me traigas todo.";
@@ -78,7 +78,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
             mes "250 ^008000Used Iron Piece^000000";            
             mes "100 ^008000Solid Iron Plate^000000";            
             mes "25 ^008000Fragment^000000";            
-            mes "y 20 ^008000Crystal Fragmets^000000.";
+            mes "y 20 ^008000Crystal Fragments^000000.";
             close;
         }    
         else {
@@ -173,8 +173,10 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
                 mes .@name$;
                 mes "Esos cristales son sacados de una cueva de la zona. Cuando lleguemos allí, habla con la gente del puerto, puede que sepa algo. Yo preguntaré sobre la cueva. Si averiguas algo, te estaré esperando en la entrada de la cueva."; 
                 next;
+                mes .@name$;
                 mes "¡Muy bien, allá vamos!";
                 set alexa_q,9;
+                next;
                 close2;
                 warp alexa_field,49,129;
                 end;
@@ -185,14 +187,28 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
         }
     }
     else if(alexa_q > 8){  // Nosé que sigue de la quest pero por siaca.
-        warp alexa_field,49,129;
-        end;
+        mes .@name$;
+        mes "¿Quieres que te lleve a Alexandria?";
+        switch(select("¡Por supuesto!:No, gracias.")) {       
+            case 1:
+                mes .@name$;
+                mes "¡Muy bien, allá vamos!";
+                set alexa_q,9;
+                next;
+                close2;
+                warp alexa_field,49,129;
+                end;
+           case 2:     
+                mes .@name$;
+                mes "Ven a verme si cambias de opinión.";        
+                close;
+        }        
     }
 }
 
-prt_in,43,112,5	script	Amigo de superviviente#alexa 706,{ //escuela de prontera
+prt_in,43,112,5	script	Estudiante#alexa 706,{ //escuela de prontera
     
-    set .@name$,"[ ^FF0000Superviviente^000000 ]";
+    set .@name$,"[ ^FF0000Estudiante^000000 ]";
 
     if(alexa_q == 1) {
         mes .@name$;
