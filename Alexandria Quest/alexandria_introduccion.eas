@@ -8,12 +8,10 @@
 
 // Variable personal para avance de quest: alexa_q
 
-//falta: 
-//- sprites de npcs
-//- setear waypoints
-//- setear warp to alexandria
+//falta:
+//scripts para el registro de party (linea 337)
 
-prontera,164,171,5	script	Ansem#alexa	49,{ //plaza de prontera norte
+prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
     
     set .@name$,"[ ^FF0000Ansem^000000 ]";
     if(alexa_q == 0) {
@@ -24,7 +22,7 @@ prontera,164,171,5	script	Ansem#alexa	49,{ //plaza de prontera norte
         mes "¿Sucede algo? ¿Puedo ayudar?";
         next;
         mes .@name$;
-        mes "No lo creo aventurero, es más, yo que tu tendría cuidado y no saldría a la calle por las noches. Están habiendo ataques.";  
+        mes "No lo creo joven, es más, yo que tu tendría cuidado y no saldría a la calle por las noches. Están habiendo ataques.";  
         next;
         mes "[^00ff00"+strcharinfo(0)+"^000000]";    
         mes "¿Ataques? ¿De quién?";
@@ -170,9 +168,11 @@ prontera,164,171,5	script	Ansem#alexa	49,{ //plaza de prontera norte
         switch(select("¡Estoy listo!:Aún no.")) {
             case 1:
                 mes .@name$;
+                mes "Esos cristales son sacados de una cueva de la zona. Cuando lleguemos allí, habla con la gente del puerto, puede que sepa algo. Yo preguntaré sobre la cueva. Si averiguas algo, te estaré esperando en la entrada de la cueva."; 
+                next;
                 mes "¡Muy bien, allá vamos!";
                 set alexa_q,9;
-                warp "mapname",<x>,<y>;
+                warp alexa_field,49,129;
                 close;
             case 2:
                 mes .@name$;
@@ -182,7 +182,7 @@ prontera,164,171,5	script	Ansem#alexa	49,{ //plaza de prontera norte
     }
 }
 
-prt_in,43,112,5	script	Amigo de superviviente#alexa 49,{ //escuela de prontera
+prt_in,43,112,5	script	Amigo de superviviente#alexa 706,{ //escuela de prontera
     if(alexa_q == 1) {
         mes "¿Atacada? ¿Te refieres a Helen? La hemos visitado, pero no nos hablaba, solo decia cosas raras de una sombra. Si quieres visitarla, está en la posada.";
         set alexa_q,2;
@@ -193,10 +193,10 @@ prt_in,43,112,5	script	Amigo de superviviente#alexa 49,{ //escuela de prontera
     }
 }
 
-prt_in,60,170,5	script	Helen#alexa	49,{ //posada del centro de prontera
+prt_in,60,170,5	script	Helen#alexa	72,{ //posada del centro de prontera
 
     set .@name$,"[ ^FF0000Helen^000000 ]";
-    else if(alexa_q == 2) {
+    if(alexa_q == 2) {
         mes .@name$;
         mes "...";
         next;
@@ -259,7 +259,7 @@ prt_in,60,170,5	script	Helen#alexa	49,{ //posada del centro de prontera
     }
 }
 
-prt_in,148,283,5	script	marca1#alexa::marca1	49,{ //plaza norte
+prontera,148,283,5	script	marca1#alexa::marca1	844,{ //plaza norte
 
 OnInIt:
 disablenpc "marca1";
@@ -270,7 +270,7 @@ if(alexa_q == 6) {
     close;
 }
 
-prt_in,122,91,5	script	marca2#alexa::marca2	49,{ //floristeria suroeste
+prontera,122,91,5	script	marca2#alexa::marca2	844,{ //floristeria suroeste
 
 OnInIt:
 disablenpc "marca2";
@@ -281,7 +281,7 @@ if(alexa_q == 6) {
     close;
 }
 
-prt_in,194,300,5	script	marca1#alexa::marca3	49,{ //iglesia y sombra
+prontera,194,300,5	script	marca1#alexa::marca3	2955,{ //iglesia y sombra
 
 OnInIt:
 disablenpc "marca3";
@@ -303,7 +303,7 @@ if(alexa_q == 6) {
     close;
 }
 
-prt_in,259,67,5	script	marca4#alexa::marca4	49,{ //muñecos de entrenamiento
+prontera,259,67,5	script	marca4#alexa::marca4	844,{ //muñecos de entrenamiento
 
 OnInIt:
 disablenpc "marca4";
@@ -312,4 +312,53 @@ if(alexa_q == 6) {
     mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
     viewpoint 2,259,67,4,0xFF0000; //muñecos de entrenamiento
     close;
+}
+
+alexa_field,227,230,5	script	Ansem#alexa	740,{ //entrada dungeon
+
+    set .@name$,"[ ^FF0000Ansem^000000 ]";
+    if(alexa_q == 9) {
+        mes "¡Aquí está! Esta es la cueva de la que procede el Cristal de Alma. ¿Has hablado con la gente del puerto? ¡Necesitamos mas información!";
+        close;
+    }    
+    if(alexa_q == 10) {
+        viewpoint 2,236,231,1,0xFF0000; //entrada dungeon
+        mes .@name$;
+        mes "¿Qué has descubierto?";
+        next;
+        mes .@name$;
+        mes "Ya veo... ^FF0000Soul Eaters^000000. Bien, creo que no hace falta que te diga que debemos hacer.";
+        next;
+        mes "Esa caverna está plagada de esas criaturas, es su nido. Si destruimos a su lider, acabaremos con los ^FF0000Soul Eaters^000000.";
+        next;
+        mes "Esto no será fácil. Reune a tantos amigos como puedas y traelos. Vamos a entrar y luchar. Ven a verme cuando estés preparado.";
+        set alexa_q,11;
+    }
+    //if(alexa_q == 11) {
+    //REGISTRO DE PARTY
+    //}
+}
+
+alexa_field,156,118,5	script	Pescador#alexa	49,{ //centro del field, frente a la puerta de una cabaña
+
+    if(alexa_q == 9) {
+        mes "¿Sombras? Aquí llamamos a esas criaturas ^FF0000Soul Eaters^000000. Salen sobretodo por las noches y se llevan el alma de todo aquel que pillan desprevenido. Uff... se llevaron a mi hermano la semana pasada. Era soldado y se ofreció para patrullar la zona por las noches.";
+        next;
+        mes "No hay noche que no se escuchen los rugidos de esas bestias... ¿Quien iba a decir que se esconderían en aquella caverna?";
+        switch(select("¿Qué caverna?")) {
+            mes "Terminus. Son unas ruinas de las que extraiamos Cristales de Alma. Un dia unos mineros hallaron una caverna repleta de estos cristales, y con ellos, las bestias. Desde entonces han estado atormentandonos.";
+            next;
+            mes "Si vas a explorarla, ten cuidado. Los Soul Eaters no son como cualquier otra bestia.
+            switch(select("¿Dónde está la caverna?")) {
+                mes "Te la marcaré en el mapa.";
+                viewpoint 1,236,231,1,0xFF0000; //entrada dungeon
+                next;
+                mes "Ten mucho cuidado, joven.";
+                set alexa_q,10;
+                close;
+            }
+        }
+    }
+    else;
+    
 }
