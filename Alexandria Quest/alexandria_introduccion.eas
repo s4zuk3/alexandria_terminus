@@ -91,7 +91,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
             delitem 7094,25;
             delitem 7321,20;
             set alexa_q,5;
-	        set alexaq_time, gettimetick(2) + 64800;    
+            set alexaq_time, gettimetick(2) + 64800;    
             close;
         }
     }
@@ -127,7 +127,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
     }
     else if(alexa_q == 7) {
         mes .@name$;
-        mes "¿Que es eso? ¿Dices que lo tenia la sombra? Déjame examinarlo...";
+        mes "¿Qué es eso? ¿Dices que lo tenia la sombra? Déjame examinarlo...";
         next;
         mes .@name$;
         mes "...";
@@ -146,7 +146,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
         mes "Estos cristales son usadas en esa cuidad como fuente de energia para algunas maquinas, algunos los llaman Cristales de Alma.";
         next;
         mes .@name$;
-        mes "¿Acaso estas sombras tienen relación con Alexandría?";
+        mes "¿Acaso estás sombras tienen relación con Alexandría?";
         next;
         mes .@name$;
         mes "...";
@@ -161,7 +161,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
         mes "¡Decidido! Nos vamos a Alexandría.";
         next;
         mes .@name$;
-        mes "Habla conmigo cuando estes preparado para partir, necesitaré tu ayuda.";
+        mes "Habla conmigo cuando estés preparado para partir, necesitaré tu ayuda.";
         set alexa_q,8;
         close;
     }
@@ -182,7 +182,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
                 end;
             case 2:
                 mes .@name$;
-                mes "Ven a verme cuando estes preparado para partir.";
+                mes "Ven a verme cuando estés preparado para partir.";
                 close;
         }
     }
@@ -279,14 +279,14 @@ prt_in,60,170,5	script	Helen#alexa	72,{ //posada del centro de prontera
         set alexa_q,3;
         close;
     }    
-    else if(alexa_q > 2 && alexa_q < 9){
+    else if(alexa_q > 2 && alexa_q < 11){
         mes .@name$;
         mes "Por favor, encuéntrala. Tengo miedo de salir a la calle, no quiero verla de nuevo."; 
         close;
     }            
-    else if(alexa_q >= 9) { 
+    else if(alexa_q >= 11) { 
         mes .@name$;
-        mes "Dicen que la sombra se fué, ya puedo salir a la calle tranquila"; 
+        mes "Hecho de menos a mis amigos del colegio..."; 
         close;    
     }
 }
@@ -384,8 +384,10 @@ alexa_field,227,230,5	script	Ansem#alexa	740,{ //entrada dungeon
         mes .@name$;
         mes "Ya veo... ^FF0000Soul Eaters^000000. Bien, creo que no hace falta que te diga que debemos hacer.";
         next;
+        mes .@name$;
         mes "Terminus está plagado de esas criaturas, es su nido. Si destruimos a su lider, acabaremos con los ^FF0000Soul Eaters^000000.";
         next;
+        mes .@name$;
         mes "Esto no será fácil. Reune a tantos amigos como puedas y traelos. Vamos a entrar y luchar. Ven a verme cuando estés preparado.";
         set alexa_q,11;
         close;
@@ -397,22 +399,32 @@ alexa_field,227,230,5	script	Ansem#alexa	740,{ //entrada dungeon
 
 alexa_field,156,118,5	script	Pescador#alexa	709,{ //centro del field, frente a la puerta de una cabaña
 
+    set .@name$,"[ ^FF0000Pescador^000000 ]";    
     if(alexa_q == 9) {
+        mes .@name$;
         mes "¿Sombras? Aquí llamamos a esas criaturas ^FF0000Soul Eaters^000000. Salen sobretodo por las noches y se llevan el alma de todo aquel que pillan desprevenido. Uff... se llevaron a mi hermano la semana pasada. Era soldado y se ofreció para patrullar la zona por las noches.";
         next;
+        mes .@name$;        
         mes "No hay noche que no se escuchen los rugidos de esas bestias... ¿Quien iba a decir que se esconderían en aquella caverna?";
         select("¿Qué caverna?");
+        mes .@name$;
         mes "Terminus. Son unas ruinas de las que extraiamos Cristales de Alma. Un dia unos mineros hallaron una caverna repleta de estos cristales, y con ellos, las bestias. Desde entonces han estado atormentandonos.";
         next;
+        mes .@name$;
         mes "Si vas a explorarla, ten cuidado. Los Soul Eaters no son como cualquier otra bestia.";
         select("¿Dónde está la caverna?");
+        mes .@name$;
         mes "Te la marcaré en el mapa.";
         viewpoint 1,236,231,1,0xFF0000; //entrada dungeon
         next;
+        mes .@name$;
         mes "Ten mucho cuidado, joven.";
         set alexa_q,10;
         close;
     }
-    end; // No hablará si la quest es distinta a alexa_q "9"
-    
+    else {
+        mes .@name$;
+        mes "Hermano, descansa en paz.";
+        close;
+    }    
 }
