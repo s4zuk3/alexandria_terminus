@@ -45,14 +45,14 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
         mes "¿Cómo? ¡¿Que has conseguido hablar con la niña?!";
         next;
         mes .@name$;    
-        mes "Ya veo, asi que eso sucedió... Quizá si puedas servirme de ayuda. Esas /"chispas/" de las que habló, segúramente sean algún tipo de energía. Si tuviera los materiales, quizá podría construir un dispositivo para rastrear esa energia y descubrir donde se esconden esas sombras. ¿Qué dices, me ayudarás?";
+        mes "Ya veo, asi que eso sucedió... Quizá si puedas servirme de ayuda. Esas \"chispas\" de las que habló, segúramente sean algún tipo de energía. Si tuviera los materiales, quizá podría construir un dispositivo para rastrear esa energia y descubrir donde se esconden esas sombras. ¿Qué dices, me ayudarás?";
         switch(select("¡Claro! ¿Qué necesitas?:Déjame que lo piense...")) {
             case 1:
                 mes .@name$;    
                 mes "Vamos a ver... Necesito:";
                 mes "250 ^008000Used Iron Piece^000000";            
                 mes "100 ^008000Solid Iron Plate^000000";            
-                mes "25 ^008000Fragment";            
+                mes "25 ^008000Fragment^000000";            
                 mes "y 20 ^008000Crystal Fragmets^000000 servirán como alimentación.";
                 next;    
                 mes .@name$;
@@ -77,21 +77,21 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
             mes "Recuerda, necesito lo siguiente:";
             mes "250 ^008000Used Iron Piece^000000";            
             mes "100 ^008000Solid Iron Plate^000000";            
-            mes "25 ^008000Fragment";            
+            mes "25 ^008000Fragment^000000";            
             mes "y 20 ^008000Crystal Fragmets^000000.";
             close;
         }    
         else {
             mes .@name$;
             mes "¡Bien, lo tienes todo!";
-            next;
+            //next; Eliminación del next para evitar bugs con el delitem. (Siempre IF (ver si tiene) delitem.)
             mes "Empezaré ya mismo, segúramente termine el dispositivo para mañana. Ven a verme ^ff0000mañana^000000 y empezaremos a rastrear la zona.";
             delitem 7319,250;
             delitem 7507,100;
             delitem 7094,25;
             delitem 7321,20;
             set alexa_q,5;
-	    set alexaq_time, gettimetick(2) + 64800;    
+	        set alexaq_time, gettimetick(2) + 64800;    
             close;
         }
     }
@@ -100,7 +100,9 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
             mes .@name$;
             mes "Lo siento, aún no he terminado el dispositivo. Vuelve más tarde.";
             close;
-        else {
+        }
+        else
+        {
             mes .@name$;
             mes "Hola "+strcharinfo(0)+", me alegro de que estes de vuelta. Ya he terminado el dispositivo, ¿te apetece probarlo?";
             next;    
@@ -161,6 +163,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
         mes .@name$;
         mes "Habla conmigo cuando estes preparado para partir, necesitaré tu ayuda.";
         set alexa_q,8;
+        close;
     }
     else if(alexa_q == 8) {
         mes .@name$;
@@ -172,22 +175,33 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
                 next;
                 mes "¡Muy bien, allá vamos!";
                 set alexa_q,9;
+                close2;
                 warp alexa_field,49,129;
-                close;
+                end;
             case 2:
                 mes .@name$;
                 mes "Ven a verme cuando estes preparado para partir.";
                 close;
         }
     }
+    else if(alexa_q > 8){  // Nosé que sigue de la quest pero por siaca.
+        warp alexa_field,49,129;
+        end;
+    }
 }
 
 prt_in,43,112,5	script	Amigo de superviviente#alexa 706,{ //escuela de prontera
+    
+    set .@name$,"[ ^FF0000Superviviente^000000 ]";
+
     if(alexa_q == 1) {
+        mes .@name$;
         mes "¿Atacada? ¿Te refieres a Helen? La hemos visitado, pero no nos hablaba, solo decia cosas raras de una sombra. Si quieres visitarla, está en la posada.";
         set alexa_q,2;
         close;
+    }
     else {
+        mes .@name$;
         mes "Helen ha dejado de venir a clase. La echo de menos.";    
         close;
     }
@@ -196,7 +210,17 @@ prt_in,43,112,5	script	Amigo de superviviente#alexa 706,{ //escuela de prontera
 prt_in,60,170,5	script	Helen#alexa	72,{ //posada del centro de prontera
 
     set .@name$,"[ ^FF0000Helen^000000 ]";
-    if(alexa_q == 2) {
+    set .@name_char$,"[^00ff00"+strcharinfo(0)+"^000000]";
+    if(alexa_q < 2) {
+        mes .@name$;
+        mes "....";    
+        next;    
+        mes .@name$;
+        mes "....";    
+        mes "-No parece que vaya a hablarte-";   
+        close;
+    }
+    else if(alexa_q == 2) {
         mes .@name$;
         mes "...";
         next;
@@ -204,32 +228,32 @@ prt_in,60,170,5	script	Helen#alexa	72,{ //posada del centro de prontera
         mes "...";    
         mes "¿Quién eres?";
         next;
-        mes "[^00ff00"+strcharinfo(0)+"^000000]";
+        mes .@name_char$;
         mes "Me llamo "+strcharinfo(0)+" Disculpa, ¿eres tú aquella a la que atacaron?";
         next;
         mes .@name$;
         mes "...si.";    
         next;
-        mes "[^00ff00"+strcharinfo(0)+"^000000]";
+        mes .@name_char$;
         mes "¿Podrías contarme lo que sucedió?";
         next;
         mes .@name$;
         mes "...solo recuerdo partes. Era de noche y estaba muy oscuro. Iba por la calle de la iglesia cuando escuche un sonido extraño detras mia. Me di la vuelta y... y..."; 
         next;
-        mes "[^00ff00"+strcharinfo(0)+"^000000]";
+        mes .@name_char$;
         mes "¿Qué pasó?";
         next;
         mes .@name$;
         mes "Había una sombra ahi. Lo único que recuerdo es que se avalanzó sobre mí... después desperte en casa.";    
         next;
-        mes "[^00ff00"+strcharinfo(0)+"^000000]";
+        mes .@name_char$;
         mes "Ya veo... ¿No recuerdas nada más?";
         next;
         mes .@name$;
         mes "Recuerdo las chispas que le salian del suelo... Y Esos ojos... me dan miedo solo recordarlos. ¡Sé que volverá!";
-        mes "-Notas como de sus ojos sale una lágrima-
+        mes "-Notas como de sus ojos sale una lágrima-";
         next;
-        mes "[^00ff00"+strcharinfo(0)+"^000000]";
+        mes .@name_char$;
         mes "Tranquila, no te preocupes. Encontraré esa sombra.";
         next;
         mes .@name$;
@@ -237,91 +261,106 @@ prt_in,60,170,5	script	Helen#alexa	72,{ //posada del centro de prontera
         next;
         mes "-Será mejor contarle esto a Ansem, quizá él también haya averiguado algo-";
         set alexa_q,3;
-        close;    
-    else if(alexa_q == 9) { 
-        mes .@name$;
-        mes "Dicen que la sombra se fué, ya puedo salir a la calle tranquila"; 
-        close;    
-    }
-    else if(alexa_q > 2) { 
+        close;
+    }    
+    else if(alexa_q > 2 && alexa_q < 9){
         mes .@name$;
         mes "Por favor, encuéntrala. Tengo miedo de salir a la calle, no quiero verla de nuevo."; 
         close;
-    }
-    else {
+    }            
+    else if(alexa_q >= 9) { 
         mes .@name$;
-        mes "....";    
-        next;    
-        mes .@name$;
-        mes "....";    
-        mes "-No parece que vaya a hablarte-";   
+        mes "Dicen que la sombra se fué, ya puedo salir a la calle tranquila"; 
         close;    
     }
 }
 
 prontera,148,283,5	script	marca1#alexa::marca1	844,{ //plaza norte
-
+    end;
 OnInIt:
-disablenpc "marca1";
+    disablenpc "marca1";
+    end;
+
 OnTouch:
-if(alexa_q == 6) {
-    mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
-    viewpoint 2,148,283,1,0xFF0000; //plaza norte
-    close;
+    if(alexa_q == 6) {
+        mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
+        viewpoint 2,148,283,1,0xFF0000; //plaza norte
+        close;
+    }
+    end;
 }
 
 prontera,122,91,5	script	marca2#alexa::marca2	844,{ //floristeria suroeste
+    end;
 
 OnInIt:
-disablenpc "marca2";
+    disablenpc "marca2";
+    end;
+    
 OnTouch:
-if(alexa_q == 6) {
-    mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
-    viewpoint 2,40,50,2,0xFF0000; //floristeria suroeste
-    close;
+    if(alexa_q == 6) {
+        mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
+        viewpoint 2,40,50,2,0xFF0000; //floristeria suroeste
+        close;
+    }   
+    end;
 }
 
 prontera,194,300,5	script	marca1#alexa::marca3	2955,{ //iglesia y sombra
-
+    end;
 OnInIt:
-disablenpc "marca3";
+    disablenpc "marca3";
+    end;
+    
 OnTouch:
-if(alexa_q == 6) {
-    mes "¡Parece que el dispositivo a detectado algo!";
-    viewpoint 2,194,300,3,0xFF0000; //iglesia y sombra
-    next;
-    mes "De repente notas una presencia extraña...";
-    enablenpc "marca3";
-    next;
-    mes "Eso es... ¡¿Una sombra?!";
-    switch(select("Enfrentarla.:Huir.")) {
-    disablenpc "marca3"; 
-    mes "Antes de que puedas hacer nada, la sombra desaparece, dejando caer algo.";
-    next;
-    mes "Decides recoger el objeto, una especie de cristal oscuro, y llevárselo a Ansem.";
-    set alexa_q,7;    
-    close;
+    if(alexa_q == 6) {
+        mes "¡Parece que el dispositivo a detectado algo!";
+        viewpoint 2,194,300,3,0xFF0000; //iglesia y sombra
+        next;
+        mes "De repente notas una presencia extraña...";
+        enablenpc "marca3";
+        next;
+        mes "Eso es... ¡¿Una sombra?!";
+        select("Enfrentarla.:Huir");
+        disablenpc "marca3"; 
+        mes "Antes de que puedas hacer nada, la sombra desaparece, dejando caer algo.";
+        next;
+        mes "Decides recoger el objeto, una especie de cristal oscuro, y llevárselo a Ansem.";
+        set alexa_q,7;    
+        close;
+        }
+    end;
+
 }
 
 prontera,259,67,5	script	marca4#alexa::marca4	844,{ //muñecos de entrenamiento
-
+    end;
 OnInIt:
-disablenpc "marca4";
+    disablenpc "marca4";
+    end;
+    
 OnTouch:
-if(alexa_q == 6) {
-    mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
-    viewpoint 2,259,67,4,0xFF0000; //muñecos de entrenamiento
-    close;
+    if(alexa_q == 6) {
+        mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
+        viewpoint 2,259,67,4,0xFF0000; //muñecos de entrenamiento
+        close;
+    }
+    end;
 }
 
 alexa_field,227,230,5	script	Ansem#alexa	740,{ //entrada dungeon
 
     set .@name$,"[ ^FF0000Ansem^000000 ]";
-    if(alexa_q == 9) {
+    if(alexa_q < 9){
+       mes .@name$;
+       mes ". . .";
+       close;
+    }
+    else if(alexa_q == 9) {
         mes "¡Aquí está! Esta es la cueva de la que procede el Cristal de Alma. ¿Has hablado con la gente del puerto? ¡Necesitamos mas información!";
         close;
     }    
-    if(alexa_q == 10) {
+    else if(alexa_q == 10) {
         viewpoint 2,236,231,1,0xFF0000; //entrada dungeon
         mes .@name$;
         mes "¿Qué has descubierto?";
@@ -333,23 +372,24 @@ alexa_field,227,230,5	script	Ansem#alexa	740,{ //entrada dungeon
         next;
         mes "Esto no será fácil. Reune a tantos amigos como puedas y traelos. Vamos a entrar y luchar. Ven a verme cuando estés preparado.";
         set alexa_q,11;
+        close;
     }
     //if(alexa_q == 11) {
     //REGISTRO DE PARTY
     //}
 }
 
-alexa_field,156,118,5	script	Pescador#alexa	49,{ //centro del field, frente a la puerta de una cabaña
+alexa_field,156,118,5	script	Pescador#alexa	709,{ //centro del field, frente a la puerta de una cabaña
 
     if(alexa_q == 9) {
         mes "¿Sombras? Aquí llamamos a esas criaturas ^FF0000Soul Eaters^000000. Salen sobretodo por las noches y se llevan el alma de todo aquel que pillan desprevenido. Uff... se llevaron a mi hermano la semana pasada. Era soldado y se ofreció para patrullar la zona por las noches.";
         next;
         mes "No hay noche que no se escuchen los rugidos de esas bestias... ¿Quien iba a decir que se esconderían en aquella caverna?";
-        select("¿Qué caverna?")
+        select("¿Qué caverna?");
         mes "Terminus. Son unas ruinas de las que extraiamos Cristales de Alma. Un dia unos mineros hallaron una caverna repleta de estos cristales, y con ellos, las bestias. Desde entonces han estado atormentandonos.";
         next;
-        mes "Si vas a explorarla, ten cuidado. Los Soul Eaters no son como cualquier otra bestia.
-        select("¿Dónde está la caverna?") 
+        mes "Si vas a explorarla, ten cuidado. Los Soul Eaters no son como cualquier otra bestia.";
+        select("¿Dónde está la caverna?");
         mes "Te la marcaré en el mapa.";
         viewpoint 1,236,231,1,0xFF0000; //entrada dungeon
         next;
@@ -357,6 +397,6 @@ alexa_field,156,118,5	script	Pescador#alexa	49,{ //centro del field, frente a la
         set alexa_q,10;
         close;
     }
-    else;
+    end; // No hablará si la quest es distinta a alexa_q "9"
     
 }
