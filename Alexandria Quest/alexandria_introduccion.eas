@@ -108,9 +108,9 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
             mes "Cuando active el dispositivo, te marcará en el mapa las zonas con energía. Solo debes acercarte a esas zonas e investigar. Si encuentras algo raro o quieres que te vuelva a marcar las zonas, ven a verme.";
             set alexa_q,6;
             viewpoint 1,148,283,1,0xFF0000; //plaza norte
-            viewpoint 1,122,91,1,0xFF0000; //floristeria suroeste
-            viewpoint 1,194,300,1,0xFF0000; //iglesia y sombra
-            viewpoint 1,259,67,1,0xFF0000; //muñecos de entrenamiento
+            viewpoint 1,122,91,2,0xFF0000; //floristeria suroeste
+            viewpoint 1,194,300,3,0xFF0000; //iglesia y sombra
+            viewpoint 1,259,67,4,0xFF0000; //muñecos de entrenamiento
             close;
         }
     }
@@ -329,7 +329,7 @@ alexa_field,227,230,5	script	Ansem#alexa	740,{ //entrada dungeon
         mes .@name$;
         mes "Ya veo... ^FF0000Soul Eaters^000000. Bien, creo que no hace falta que te diga que debemos hacer.";
         next;
-        mes "Esa caverna está plagada de esas criaturas, es su nido. Si destruimos a su lider, acabaremos con los ^FF0000Soul Eaters^000000.";
+        mes "Terminus está plagado de esas criaturas, es su nido. Si destruimos a su lider, acabaremos con los ^FF0000Soul Eaters^000000.";
         next;
         mes "Esto no será fácil. Reune a tantos amigos como puedas y traelos. Vamos a entrar y luchar. Ven a verme cuando estés preparado.";
         set alexa_q,11;
@@ -345,19 +345,17 @@ alexa_field,156,118,5	script	Pescador#alexa	49,{ //centro del field, frente a la
         mes "¿Sombras? Aquí llamamos a esas criaturas ^FF0000Soul Eaters^000000. Salen sobretodo por las noches y se llevan el alma de todo aquel que pillan desprevenido. Uff... se llevaron a mi hermano la semana pasada. Era soldado y se ofreció para patrullar la zona por las noches.";
         next;
         mes "No hay noche que no se escuchen los rugidos de esas bestias... ¿Quien iba a decir que se esconderían en aquella caverna?";
-        switch(select("¿Qué caverna?")) {
-            mes "Terminus. Son unas ruinas de las que extraiamos Cristales de Alma. Un dia unos mineros hallaron una caverna repleta de estos cristales, y con ellos, las bestias. Desde entonces han estado atormentandonos.";
-            next;
-            mes "Si vas a explorarla, ten cuidado. Los Soul Eaters no son como cualquier otra bestia.
-            switch(select("¿Dónde está la caverna?")) {
-                mes "Te la marcaré en el mapa.";
-                viewpoint 1,236,231,1,0xFF0000; //entrada dungeon
-                next;
-                mes "Ten mucho cuidado, joven.";
-                set alexa_q,10;
-                close;
-            }
-        }
+        select("¿Qué caverna?")
+        mes "Terminus. Son unas ruinas de las que extraiamos Cristales de Alma. Un dia unos mineros hallaron una caverna repleta de estos cristales, y con ellos, las bestias. Desde entonces han estado atormentandonos.";
+        next;
+        mes "Si vas a explorarla, ten cuidado. Los Soul Eaters no son como cualquier otra bestia.
+        select("¿Dónde está la caverna?") 
+        mes "Te la marcaré en el mapa.";
+        viewpoint 1,236,231,1,0xFF0000; //entrada dungeon
+        next;
+        mes "Ten mucho cuidado, joven.";
+        set alexa_q,10;
+        close;
     }
     else;
     
