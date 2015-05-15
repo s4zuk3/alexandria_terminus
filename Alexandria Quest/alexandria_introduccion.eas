@@ -46,6 +46,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
         next;
         mes .@name$;    
         mes "Ya veo, asi que eso sucedió... Quizá si puedas servirme de ayuda. Esas \"chispas\" de las que habló, segúramente sean algún tipo de energía. Si tuviera los materiales, quizá podría construir un dispositivo para rastrear esa energia y descubrir donde se esconden esas sombras. ¿Qué dices, me ayudarás?";
+        next;
         switch(select("¡Claro! ¿Qué necesitas?:Déjame que lo piense...")) {
             case 1:
                 mes .@name$;    
@@ -85,20 +86,20 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
             mes .@name$;
             mes "¡Bien, lo tienes todo!";
             //next; Eliminación del next para evitar bugs con el delitem. (Siempre IF (ver si tiene) delitem.)
-            mes "Empezaré ya mismo, segúramente termine el dispositivo para mañana. Ven a verme ^ff0000mañana^000000 y empezaremos a rastrear la zona.";
+            mes "Empezaré ya mismo, segúramente termine el dispositivo para mañana. Ven a verme ^ff0000en una hora^000000 y empezaremos a rastrear la zona.";
             delitem 7319,250;
             delitem 7507,100;
             delitem 7094,25;
             delitem 7321,20;
             set alexa_q,5;
-            set alexaq_time, gettimetick(2) + 64800;    
+            set alexaq_time, gettimetick(2) + 3600; // 1 horas
             close;
         }
     }
     else if(alexa_q == 5) {
         if(alexaq_time > gettimetick(2)){
             mes .@name$;
-            mes "Lo siento, aún no he terminado el dispositivo. Vuelve más tarde.";
+            mes "Lo siento, aún no he terminado el dispositivo. Vuelve más tarde. (Tiempo Máximo 1 hora)";
             close;
         }
         else
@@ -168,6 +169,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
     else if(alexa_q == 8) {
         mes .@name$;
         mes "¿Estás listo para ir a Alexandría?";
+        next;
         switch(select("¡Estoy listo!:Aún no.")) {
             case 1:
                 mes .@name$;
@@ -176,9 +178,8 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
                 mes .@name$;
                 mes "¡Muy bien, allá vamos!";
                 set alexa_q,9;
-                next;
                 close2;
-                warp alexa_field,49,129;
+                warp "alexa_field",49,129;
                 end;
             case 2:
                 mes .@name$;
@@ -189,14 +190,14 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
     else if(alexa_q > 8){  // Nosé que sigue de la quest pero por siaca.
         mes .@name$;
         mes "¿Quieres que te lleve a Alexandria?";
+        next;
         switch(select("¡Por supuesto!:No, gracias.")) {       
             case 1:
                 mes .@name$;
                 mes "¡Muy bien, allá vamos!";
                 set alexa_q,9;
-                next;
                 close2;
-                warp alexa_field,49,129;
+                warp "alexa_field",49,129;
                 end;
            case 2:     
                 mes .@name$;
@@ -291,10 +292,10 @@ prt_in,60,170,5	script	Helen#alexa	72,{ //posada del centro de prontera
     }
 }
 
-prontera,148,283,5	script	marca1#alexa::marca1	844,{ //plaza norte
+prontera,148,283,5	script	#marca1::marca1	844,4,4,{ //plaza norte
     end;
 OnInIt:
-    disablenpc "marca1";
+    //disablenpc "marca1";
     end;
 
 OnTouch:
@@ -306,11 +307,11 @@ OnTouch:
     end;
 }
 
-prontera,122,91,5	script	marca2#alexa::marca2	844,{ //floristeria suroeste
+prontera,122,91,5	script	#marca2::marca2	844,4,4,{ //floristeria suroeste
     end;
 
 OnInIt:
-    disablenpc "marca2";
+    //disablenpc "marca2";
     end;
     
 OnTouch:
@@ -322,10 +323,10 @@ OnTouch:
     end;
 }
 
-prontera,194,300,5	script	marca1#alexa::marca3	2955,{ //iglesia y sombra
+prontera,194,300,5	script	#marca32::marca32	844,4,4,{ //muñecos de entrenamiento
     end;
 OnInIt:
-    disablenpc "marca3";
+    //disablenpc "marca32";
     end;
     
 OnTouch:
@@ -346,13 +347,19 @@ OnTouch:
         close;
         }
     end;
-
 }
 
-prontera,259,67,5	script	marca4#alexa::marca4	844,{ //muñecos de entrenamiento
+prontera,194,300,5	script	#marca3::marca3	2955,{ //iglesia y sombra
     end;
 OnInIt:
-    disablenpc "marca4";
+    disablenpc "marca3";
+    end;
+}
+
+prontera,259,67,5	script	marca4#alexa::marca4	844,4,4,{ //muñecos de entrenamiento
+    end;
+OnInIt:
+    //disablenpc "marca4";
     end;
     
 OnTouch:
@@ -364,8 +371,42 @@ OnTouch:
     end;
 }
 
-//alexa_field,227,230,5	script	Ansem#alexa2	740,{ //entrada dungeon
-prontera,156,180,5	script	Ansem#alexa2	740,{ //entrada dungeon
+alexa_field,156,118,5	script	Pescador#alexa	709,{ //centro del field, frente a la puerta de una cabaña
+
+    set .@name$,"[ ^FF0000Pescador^000000 ]";    
+    if(alexa_q == 9) {
+        mes .@name$;
+        mes "¿Sombras? Aquí llamamos a esas criaturas ^FF0000Soul Eaters^000000. Salen sobretodo por las noches y se llevan el alma de todo aquel que pillan desprevenido. Uff... se llevaron a mi hermano la semana pasada. Era soldado y se ofreció para patrullar la zona por las noches.";
+        next;
+        mes .@name$;        
+        mes "No hay noche que no se escuchen los rugidos de esas bestias... ¿Quien iba a decir que se esconderían en aquella caverna?";
+        next;
+        select("¿Qué caverna?");
+        mes .@name$;
+        mes "Terminus. Son unas ruinas de las que extraiamos Cristales de Alma. Un dia unos mineros hallaron una caverna repleta de estos cristales, y con ellos, las bestias. Desde entonces han estado atormentandonos.";
+        next;
+        mes .@name$;
+        mes "Si vas a explorarla, ten cuidado. Los Soul Eaters no son como cualquier otra bestia.";
+        next;
+        select("¿Dónde está la caverna?");
+        mes .@name$;
+        mes "Te la marcaré en el mapa.";
+        viewpoint 1,236,231,1,0xFF0000; //entrada dungeon
+        next;
+        mes .@name$;
+        mes "Ten mucho cuidado, joven.";
+        set alexa_q,10;
+        close;
+    }
+    else {
+        mes .@name$;
+        mes "Hermano, descansa en paz.";
+        close;
+    }    
+}
+
+
+alexa_field,237,243,5	script	Ansem#alexa2	740,{ //entrada dungeon
 
     set .@name$,"[ ^FF0000Ansem^000000 ]";
     if(alexa_q < 9){
@@ -374,6 +415,7 @@ prontera,156,180,5	script	Ansem#alexa2	740,{ //entrada dungeon
        close;
     }
     else if(alexa_q == 9) {
+        mes .@name$;
         mes "¡Aquí está! Esta es la cueva de la que procede el Cristal de Alma. ¿Has hablado con la gente del puerto? ¡Necesitamos mas información!";
         close;
     }    
@@ -396,36 +438,4 @@ prontera,156,180,5	script	Ansem#alexa2	740,{ //entrada dungeon
     //if(alexa_q == 11) {
     //REGISTRO DE PARTY
     //}
-}
-
-alexa_field,156,118,5	script	Pescador#alexa	709,{ //centro del field, frente a la puerta de una cabaña
-
-    set .@name$,"[ ^FF0000Pescador^000000 ]";    
-    if(alexa_q == 9) {
-        mes .@name$;
-        mes "¿Sombras? Aquí llamamos a esas criaturas ^FF0000Soul Eaters^000000. Salen sobretodo por las noches y se llevan el alma de todo aquel que pillan desprevenido. Uff... se llevaron a mi hermano la semana pasada. Era soldado y se ofreció para patrullar la zona por las noches.";
-        next;
-        mes .@name$;        
-        mes "No hay noche que no se escuchen los rugidos de esas bestias... ¿Quien iba a decir que se esconderían en aquella caverna?";
-        select("¿Qué caverna?");
-        mes .@name$;
-        mes "Terminus. Son unas ruinas de las que extraiamos Cristales de Alma. Un dia unos mineros hallaron una caverna repleta de estos cristales, y con ellos, las bestias. Desde entonces han estado atormentandonos.";
-        next;
-        mes .@name$;
-        mes "Si vas a explorarla, ten cuidado. Los Soul Eaters no son como cualquier otra bestia.";
-        select("¿Dónde está la caverna?");
-        mes .@name$;
-        mes "Te la marcaré en el mapa.";
-        viewpoint 1,236,231,1,0xFF0000; //entrada dungeon
-        next;
-        mes .@name$;
-        mes "Ten mucho cuidado, joven.";
-        set alexa_q,10;
-        close;
-    }
-    else {
-        mes .@name$;
-        mes "Hermano, descansa en paz.";
-        close;
-    }    
 }
