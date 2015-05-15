@@ -206,8 +206,8 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
     }
 }
 
-prt_in,43,112,5	script	Estudiante#alexa 706,{ //escuela de prontera
-    
+prt_in,43,112,5	script	Estudiante#alexa	706,{ //escuela de prontera
+ 
     set .@name$,"[ ^FF0000Estudiante^000000 ]";
 
     if(alexa_q == 1) {
@@ -364,12 +364,13 @@ OnTouch:
     end;
 }
 
-alexa_field,227,230,5	script	Ansem#alexa	740,{ //entrada dungeon
+//alexa_field,227,230,5	script	Ansem#alexa2	740,{ //entrada dungeon
+prontera,156,180,5	script	Ansem#alexa2	740,{ //entrada dungeon
 
     set .@name$,"[ ^FF0000Ansem^000000 ]";
     if(alexa_q < 9){
        mes .@name$;
-       mes ". . .";
+       mes "Esta es la entrada a Terminus. Dicen que monstruos muy peligrosos rondan estos lugares, mejor no te acerques.";
        close;
     }
     else if(alexa_q == 9) {
