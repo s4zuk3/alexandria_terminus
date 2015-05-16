@@ -1,18 +1,7 @@
 // recordatorio: setear mapflags y anti skills
 
 // Instancia Dragon's Terminus
-// Infinity RO (?)
-/* 
-mobs: 	2950 un dragon azul   MVP derecho abajo
-	2977 un dragon rojo  Terminus MVP
-	2976 un dragon volador pequeño  MVP abajo izquierda
-    2944 blastoise MVP
-    2945 charizard mvp
-    MOB NEGRO:
-	2955 unas weas negras
-	2952 otra wea negra
-	2948 otra wea negra
-*/
+// Infinity RO 
 
 
 // CRISTALES BUFFER RED BLUE
@@ -57,9 +46,9 @@ OnDisable:
 OnInstanceInit:
     set $wall_term,$wall_term + 1;
     //camino derecho de la entrada
-    monstersize instance_mapname("1@term"),0,0,"Soul Eater",2955,55,2,instance_npcname("#mob_term")+"::OnMyMobDead";
-    monstersize instance_mapname("1@term"),0,0,"Soul Eater",2952,55,2,instance_npcname("#mob_term")+"::OnMyMobDead";
-    monstersize instance_mapname("1@term"),0,0,"Soul Eater",2948,55,2,instance_npcname("#mob_term")+"::OnMyMobDead";    
+    monster instance_mapname("1@term"),0,0,"Soul Eater",2955,55,instance_npcname("#mob_term")+"::OnMyMobDead";
+    monster instance_mapname("1@term"),0,0,"Soul Eater",2952,55,instance_npcname("#mob_term")+"::OnMyMobDead";
+    monster instance_mapname("1@term"),0,0,"Soul Eater",2948,55,instance_npcname("#mob_term")+"::OnMyMobDead";    
     end;
 
 OnDisable:
@@ -73,7 +62,7 @@ OnMyMobDead:
 1@term,1,1,0	script	#mvp1_term	844,{  // controlador mvp 1
     end;
 OnInstanceInit:
-    monstersize instance_mapname("1@term"),49,50,"Spicy",2976,1,2,instance_npcname("#mvp1_term")+"::OnMyMobDead";
+    spmonster instance_mapname("1@term"),49,50,"Spicy",2976,2,instance_npcname("#mvp1_term")+"::OnMyMobDead",15;
     end;
     
 OnDisable:
@@ -89,7 +78,7 @@ OnMyMobDead:
 1@term,1,1,0	script	#mvp2_term	844,{  // controlador mvp 2
     end;
 OnInstanceInit:
-    monstersize instance_mapname("1@term"),254,42,"Nessie",2950,1,2,instance_npcname("#mvp2_term")+"::OnMyMobDead";
+    spmonster instance_mapname("1@term"),254,42,"Nessie",2950,2,instance_npcname("#mvp2_term")+"::OnMyMobDead",15;
     end;
     
 OnDisable:
@@ -116,8 +105,8 @@ OnMyMobDead:
 
 
 OnInstanceInit:
-    monstersize instance_mapname("1@term"),45,255,"Blastoise",2944,1,2,instance_npcname("Sign#term")+"::OnMyMobDead";
-    monstersize instance_mapname("1@term"),255,245,"Charizard",2945,1,2,instance_npcname("Sign#term")+"::OnMyMobDead";
+    spmonster instance_mapname("1@term"),45,255,"Blastoise",2944,2,instance_npcname("Sign#term")+"::OnMyMobDead",15;
+    spmonster instance_mapname("1@term"),255,245,"Charizard",2945,2,instance_npcname("Sign#term")+"::OnMyMobDead",15;
     end;
 OnDisable:
 	killmonster instance_mapname("1@term"),instance_npcname("Sign#term")+"::OnMyMobDead";
@@ -201,7 +190,7 @@ OnTimer15000:
     close;
 
 OnInstanceInit:
-    monstersize instance_mapname("1@term"),149,153,"Terminus",2977,1,2,instance_npcname("Informacion#term")+"::OnMyMobDead";
+    spmonster instance_mapname("1@term"),149,153,"Terminus",2977,2,instance_npcname("Informacion#term")+"::OnMyMobDead",12;
     end;
 OnDisable:
     killmonster instance_mapname("1@term"),instance_npcname("Informacion#term")+"::OnMyMobDead";
@@ -218,7 +207,7 @@ OnTimer5000:
     mapannounce instance_mapname("1@term"), "[ ~ Valientes guerreros, lo han logrado!~ ]",bc_map,"0xff4444";
     end;
 OnTimer8000:
-    mapannounce instance_mapname("1@term"), "[ ~ Se abrio un warp de salida cercade aquí.~ ]",bc_map,"0xff4444";
+    mapannounce instance_mapname("1@term"), "[ ~ Se abrio un warp de salida al sur de aquí.~ ]",bc_map,"0xff4444";
     stopnpctimer;
     end;
 }  
@@ -239,7 +228,7 @@ OnEnable:
 	end;
 
 OnTouch_:
-	warp "prontera",150,150;
+	warp "alexa_field",237,239;
     end;
 }
 
@@ -253,6 +242,8 @@ OnTouch_:
 OnInstanceInit:
     setwall instance_mapname("1@term"),146,142,6,6,0,instance_mapname("1@term")+"mvp5down"+$wall_term;
     end;
+
+OnInstanceEnd:
 OnDisable:
     delwall  instance_mapname("1@term")+"mvp5down"+$wall_term;
     
@@ -270,6 +261,7 @@ OnDisable:
 OnInstanceInit:
     setwall instance_mapname("1@term"),185,150,6,0,0,instance_mapname("1@term")+"mvp5right"+$wall_term;
     end;
+OnInstanceEnd:
 OnDisable:
     delwall  instance_mapname("1@term")+"mvp5right"+$wall_term;
     
@@ -287,6 +279,7 @@ OnDisable:
 OnInstanceInit:
     setwall instance_mapname("1@term"),183,104,3,4,0,instance_mapname("1@term")+"crystal2"+$wall_term;
     end;
+OnInstanceEnd:
 OnDisable:
     delwall  instance_mapname("1@term")+"crystal2"+$wall_term;
     
@@ -302,6 +295,7 @@ OnDisable:
 OnInstanceInit:
     setwall instance_mapname("1@term"),254,116,6,6,0,instance_mapname("1@term")+"mvp2"+$wall_term; 
     end;
+OnInstanceEnd:
 OnDisable: 
     mapannounce instance_mapname("1@term"), "~ Se ha escuchado un derrumbe muy cerca de aquí.~",bc_map,"0x77ff77";	
     delwall  instance_mapname("1@term")+"mvp2"+$wall_term;
@@ -320,6 +314,7 @@ OnDisable:
 OnInstanceInit:
     setwall instance_mapname("1@term"),51,99,6,2,0,instance_mapname("1@term")+"mvp1"+$wall_term;
     end;
+OnInstanceEnd:
 OnDisable:
     mapannounce instance_mapname("1@term"), "~ Se ha escuchado un derrumbe muy cerca de aquí.~",bc_map,"0x77ff77";
     delwall  instance_mapname("1@term")+"mvp1"+$wall_term;
@@ -338,6 +333,7 @@ OnDisable:
 OnInstanceInit:
     setwall instance_mapname("1@term"),116,101,4,6,0,instance_mapname("1@term")+"crystal1"+$wall_term;
     end;
+OnInstanceEnd:
 OnDisable:
     delwall  instance_mapname("1@term")+"crystal1"+$wall_term;
     
@@ -386,6 +382,3 @@ end;
 1@term,118,101,6	duplicate(bdefault)	#b_c1_3	1905 
 1@term,119,101,6	duplicate(bdefault)	#b_c1_4	1905 
 
-
-
-1@term	mapflag	mvpdistance
