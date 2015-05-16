@@ -435,7 +435,127 @@ alexa_field,237,243,5	script	Ansem#alexa2	740,{ //entrada dungeon
         set alexa_q,11;
         close;
     }
-    //if(alexa_q == 11) {
-    //REGISTRO DE PARTY
-    //}
+    if(alexa_q == 11) {
+    
+    
+     set .@party_id,getcharid(1);
+    set .@party_name$,getpartyname(.@party_id);
+    set .@ins_name_mes$,"^ff0000Dragon's Terminus^000000";
+    set .@md_name$,"Dragon's Terminus";
+	set .@ins_term_check,checkquest(60500,PLAYTIME); // 3 Day cooldown
+	set .@ins_term_check2,checkquest(60501,PLAYTIME); // 4 Hour play limit
+	set .@ins_term_entertime,instance_get_enter_time(.@md_name$);//tiempo de creacion de la instancia actual
+	set .@party_min,1; //(Recomendado 7) Cantidad de players minimos para crear y entrar a la instancia.
+
+
+    if (.@ins_term_check == -1 && .@ins_term_check2 == -1) {
+	           if (!instance_check_party(.@party_id,.@party_min,80,99)) {
+                  mes "[ "+.@ins_name_mes$+" ]";
+		          mes "- Solo partys entre level ^ff000080 ~ 99^000000 pueden entrar a la instancia.";
+		          mes "- Cantidad de usuarios minimos en la party para entrar son ^ff0000"+.@party_min+"^000000.";
+		          close;
+	           }
+			if (getcharid(0) == getpartyleader(.@party_id,2)) {
+				mes "[ "+.@ins_name_mes$+" ]";
+				mes "Party confirmada. Desea reservar entrada a "+.@ins_name_mes$+"?";
+				next;
+				switch(select("Reservar "+.@ins_name$+":Entrar a la instancia:Cancelar")) {
+				case 1:
+					if (instance_create(.@md_name$) < 0) {
+						mes "Party Name: "+.@party_name$;
+					    mes "Party Leader: "+strcharinfo(0);
+					    mes "^0000ff"+.@ins_name_mes$+" ^000000 - Ya existe una reserva.";
+					    close;
+					}
+				  mes "^0000ff"+.@ins_name_mes$+"^000000 - Intentando reservar una entrada.";
+				  mes "Despues de hacer la reservacion, tiene que seleccionar 'Entrar a la instancia' desde el menu si desea entrar a "+.@ins_name_mes$+".";
+				  announce "[ "+strcharinfo(0)+" ] lider de la party [ "+.@party_name$+" ] se están preparando para el desafio en Dragon's Terminus.",bc_all,0x00ff99;
+                  close;
+                case 2:
+					goto L_Enter;
+				case 3:
+					close;
+				}
+			}
+			mes "[ "+.@ins_name_mes$+" ]";
+			mes "Si el dungeon a sido generado por el lider, puedes entrar.";
+			next;
+            if(select("Entrar a "+ .@ins_name_mes$ + ":Cancelar") == 2)
+			close;
+			goto L_Enter;
+		} else {
+			if (.@ins_term_check == 0 || .@ins_term_check == 1) {
+				if ('ins_term2 == 3 || 'ins_term2 == 4) {
+					mes "[ "+.@ins_name_mes$+" ]";
+                    mes "Con la derrota de Terminus, todo volverá a la normalidad...";
+                    next;
+                    mes "[ "+.@ins_name_mes$+" ]";
+                    mes "Aunque he visto que luego de 3 días vuelven a aparecer estos seres malignos.";
+					close;
+				}
+				if (.@ins_term_check2 == 2) {//cooldown de 3 dias aun esta corriendo y el dungeon ya expiro
+					mes "[ "+.@ins_name_mes$+" ]";
+                    mes "El tiempo limite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se re estabilize antes de volver a entrar";
+					close;
+				}
+				if (term_entertime != .@ins_term_entertime) { //cooldown de 3 dias sigue corriendo y la instancia que comenzo el cooldown no corresponde a la instancia que se intenta entrar
+				mes "[ "+.@ins_name_mes$+" ]";
+					mes "El tiempo limite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se re estabilize antes de volver a entrar";
+					close;
+				}
+				mes "[ "+.@ins_name_mes$+" ]";
+					mes "Si el dungeon a sido generado por el lider, puedes entrar.";
+				next;
+				if(select("Entrar a "+ .@ins_name_mes$ + ":Cancelar") == 2)
+					close;
+				goto L_Enter;
+			} else if (.@ins_term_check == 2) {
+				if (.@ins_term_check2 == 0 || .@ins_term_check2 == 1) {
+					mes "[ "+.@ins_name_mes$+" ]";
+					mes "El tiempo limite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se re estabilize antes de volver a entrar";
+					close;
+				} else if (.@ins_term_check2 == 2) {
+					mes "[ "+.@ins_name_mes$+" ]";
+					mes "Se ha re-establecido el tiempo.";
+					next;
+					mes "[ "+.@ins_name_mes$+" ]";
+					mes "Si deseas entrar nuevamente, habla conmigo denuevo.";
+					erasequest 60500;
+					erasequest 60501;
+					set 'ins_term2,0;
+					close;
+				}
+			}
+		}
+    
+    
+    } // end inf 11
+    mes "error";
+    close;
+    
+    
+L_Enter:
+	switch(instance_enter(.@md_name$)) {
+	case 3:
+		mes "[ "+.@ins_name_mes$+" ]";
+		mes "A sucedio un error desconocido.";
+		close;
+	case 2:
+        mes "[ "+.@ins_name_mes$+" ]";
+		mes "La instancia  "+ .@ins_name$ +" no existe.";
+		mes "Deberias aceptar la admision antes de entrar.";
+		close;
+	case 1:
+		mes "[ "+.@ins_name_mes$+" ]";
+		mes "Debes estar en una party.";
+		close;
+	case 0:
+		mapannounce "alexa_field",getpartyname(getcharid(1))+"'s party member "+strcharinfo(0)+" has entered Dragon's Terminus.",bc_map,"0x00ff99";
+		if (checkquest(60500) == -1 && checkquest(60501) == -1) set term_entertime,instance_get_enter_time(.@md_name$);
+		if (checkquest(60500) == -1) setquest 60500;
+		if (checkquest(60501) == -1) setquest 60501;
+		//warp "1@nyd",32,36;
+		close;
+	}    
+    
 }
