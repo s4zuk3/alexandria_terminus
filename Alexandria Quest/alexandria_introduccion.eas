@@ -37,7 +37,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
     }
     else if(alexa_q <= 2) {
         mes .@name$;
-        mes "Ten cuidado por las noches, parece que es cuando atacan... *Suspiro* Debería ver a esa pequeña de nuevo.";   
+        mes "Ten cuidado por las noches, parece que es cuando atacan... *Suspiro* Debería ver a esa pequeña estudiante de nuevo.";   
         close;   
     }
     else if(alexa_q == 3) {
@@ -105,7 +105,7 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
         else
         {
             mes .@name$;
-            mes "Hola "+strcharinfo(0)+", me alegro de que estes de vuelta. Ya he terminado el dispositivo, ¿te apetece probarlo?";
+            mes "Hola "+strcharinfo(0)+", me alegro de que estés de vuelta. Ya he terminado el dispositivo, ¿te apetece probarlo?";
             next;    
             mes .@name$;
             mes "Cuando active el dispositivo, te marcará en el mapa las zonas con energía. Solo debes acercarte a esas zonas e investigar. Si encuentras algo raro o quieres que te vuelva a marcar las zonas, ven a verme.";
@@ -144,10 +144,10 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
         mes "¡Esto es de Alexandría!";
         next;
         mes .@name$;
-        mes "Estos cristales son usadas en esa cuidad como fuente de energia para algunas maquinas, algunos los llaman Cristales de Alma.";
+        mes "Estos cristales son usados en esa cuidad como fuente de energia para algunas máquinas, algunos los llaman Cristales de Alma.";
         next;
         mes .@name$;
-        mes "¿Acaso estás sombras tienen relación con Alexandría?";
+        mes "¿Acaso estas sombras tienen relación con Alexandría?";
         next;
         mes .@name$;
         mes "...";
@@ -234,7 +234,7 @@ prt_in,60,170,5	script	Helen#alexa	72,{ //posada del centro de prontera
         next;    
         mes .@name$;
         mes "....";    
-        mes "-No parece que vaya a hablarte-";   
+        mes "^0000ff-No parece que vaya a hablarte-^000000";   
         close;
     }
     else if(alexa_q == 2) {
@@ -267,8 +267,8 @@ prt_in,60,170,5	script	Helen#alexa	72,{ //posada del centro de prontera
         mes "Ya veo... ¿No recuerdas nada más?";
         next;
         mes .@name$;
-        mes "Recuerdo las chispas que le salian del suelo... Y Esos ojos... me dan miedo solo recordarlos. ¡Sé que volverá!";
-        mes "-Notas como de sus ojos sale una lágrima-";
+        mes "Recuerdo las chispas que le salian del suelo... Y esos ojos... me dan miedo solo recordarlos. ¡Sé que volverá!";
+        mes "^0000ff-Notas como de sus ojos sale una lágrima-^000000";
         next;
         mes .@name_char$;
         mes "Tranquila, no te preocupes. Encontraré esa sombra.";
@@ -276,7 +276,7 @@ prt_in,60,170,5	script	Helen#alexa	72,{ //posada del centro de prontera
         mes .@name$;
         mes "¿D-de verdad lo harás? ¡Gracias!";
         next;
-        mes "-Será mejor contarle esto a Ansem, quizá él también haya averiguado algo-";
+        mes "^0000ff-Será mejor contarle esto a Ansem, quizá él también haya averiguado algo-^000000";
         set alexa_q,3;
         close;
     }    
@@ -287,7 +287,7 @@ prt_in,60,170,5	script	Helen#alexa	72,{ //posada del centro de prontera
     }            
     else if(alexa_q >= 11) { 
         mes .@name$;
-        mes "Hecho de menos a mis amigos del colegio..."; 
+        mes "El médico dice que aún no puedo volver a clase. Hecho de menos a mis amigos del colegio..."; 
         close;    
     }
 }
@@ -300,7 +300,7 @@ OnInIt:
 
 OnTouch:
     if(alexa_q == 6) {
-        mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
+        mes "^0000ff-El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.-^000000";
         viewpoint 2,148,283,1,0xFF0000; //plaza norte
         close;
     }
@@ -316,7 +316,7 @@ OnInIt:
     
 OnTouch:
     if(alexa_q == 6) {
-        mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
+        mes "^0000ff-El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.-^000000";
         viewpoint 2,40,50,2,0xFF0000; //floristeria suroeste
         close;
     }   
@@ -331,18 +331,18 @@ OnInIt:
     
 OnTouch:
     if(alexa_q == 6) {
-        mes "¡Parece que el dispositivo a detectado algo!";
+        mes "^0000ff-¡Parece que el dispositivo a detectado algo!-^000000";
         viewpoint 2,194,300,3,0xFF0000; //iglesia y sombra
         next;
-        mes "De repente notas una presencia extraña...";
+        mes "^0000ff-De repente notas una presencia extraña...-^000000";
         enablenpc "marca3";
         next;
-        mes "Eso es... ¡¿Una sombra?!";
+        mes "^0000ff-Eso es... ¡¿Una sombra?!-^000000";
         select("Enfrentarla.:Huir");
         disablenpc "marca3"; 
-        mes "Antes de que puedas hacer nada, la sombra desaparece, dejando caer algo.";
+        mes "^0000ff-Antes de que puedas hacer nada, la sombra desaparece, dejando caer algo.-^000000";
         next;
-        mes "Decides recoger el objeto, una especie de cristal oscuro, y llevárselo a Ansem.";
+        mes "^0000ff-Decides recoger el objeto, una especie de cristal oscuro, y llevárselo a Ansem.-^000000";
         set alexa_q,7;    
         close;
         }
@@ -364,7 +364,7 @@ OnInIt:
     
 OnTouch:
     if(alexa_q == 6) {
-        mes "El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.";
+        mes "^0000ff-El dispositivo detecta una señal muy débil, será mejor buscar en otro lado.-^000000";
         viewpoint 2,259,67,4,0xFF0000; //muñecos de entrenamiento
         close;
     }
@@ -383,7 +383,7 @@ alexa_field,156,118,5	script	Pescador#alexa	709,{ //centro del field, frente a l
         next;
         select("¿Qué caverna?");
         mes .@name$;
-        mes "Terminus. Son unas ruinas de las que extraiamos Cristales de Alma. Un dia unos mineros hallaron una caverna repleta de estos cristales, y con ellos, las bestias. Desde entonces han estado atormentandonos.";
+        mes "Terminus. Son unas ruinas de las que extraiamos Cristales de Alma. Un dia unos mineros hallaron una caverna repleta de estos cristales, y con ellos, las bestias. Desde entonces han estado atormentándonos.";
         next;
         mes .@name$;
         mes "Si vas a explorarla, ten cuidado. Los Soul Eaters no son como cualquier otra bestia.";
