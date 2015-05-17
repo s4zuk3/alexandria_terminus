@@ -495,12 +495,12 @@ alexa_field,237,243,5	script	Ansem#alexa2	740,{ //entrada dungeon
 				}
 				if (.@ins_term_check2 == 2) {//cooldown de 3 dias aun esta corriendo y el dungeon ya expiro
 					mes "[ "+.@ins_name_mes$+" ]";
-                    mes "El tiempo límite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se restabilice antes de volver a entrar";
+                    mes "El tiempo límite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se restablezca antes de volver a entrar";
 					close;
 				}
 				if (term_entertime != .@ins_term_entertime) { //cooldown de 3 dias sigue corriendo y la instancia que comenzo el cooldown no corresponde a la instancia que se intenta entrar
 				mes "[ "+.@ins_name_mes$+" ]";
-					mes "El tiempo límite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se restabilice antes de volver a entrar";
+					mes "El tiempo límite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se restablezca antes de volver a entrar";
 					close;
 				}
 				mes "[ "+.@ins_name_mes$+" ]";
@@ -512,7 +512,7 @@ alexa_field,237,243,5	script	Ansem#alexa2	740,{ //entrada dungeon
 			} else if (.@ins_term_check == 2) {
 				if (.@ins_term_check2 == 0 || .@ins_term_check2 == 1) {
 					mes "[ "+.@ins_name_mes$+" ]";
-					mes "El tiempo límite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se restabilice antes de volver a entrar";
+					mes "El tiempo límite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se restablezca antes de volver a entrar";
 					close;
 				} else if (.@ins_term_check2 == 2) {
 					mes "[ "+.@ins_name_mes$+" ]";
