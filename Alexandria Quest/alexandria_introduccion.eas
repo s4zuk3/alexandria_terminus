@@ -451,8 +451,8 @@ alexa_field,237,243,5	script	Ansem#alexa2	740,{ //entrada dungeon
     if (.@ins_term_check == -1 && .@ins_term_check2 == -1) {
 	           if (!instance_check_party(.@party_id,.@party_min,80,99)) {
                   mes "[ "+.@ins_name_mes$+" ]";
-		          mes "- Solo partys entre level ^ff000080 ~ 99^000000 pueden entrar a la instancia.";
-		          mes "- Cantidad de usuarios minimos en la party para entrar son ^ff0000"+.@party_min+"^000000.";
+		          mes "- Solo parties entre level ^ff000080 ~ 99^000000 pueden entrar a la instancia.";
+		          mes "- Cantidad de usuarios mínimos en la party para entrar son ^ff0000"+.@party_min+"^000000.";
 		          close;
 	           }
 			if (getcharid(0) == getpartyleader(.@party_id,2)) {
@@ -468,7 +468,7 @@ alexa_field,237,243,5	script	Ansem#alexa2	740,{ //entrada dungeon
 					    close;
 					}
 				  mes "^0000ff"+.@ins_name_mes$+"^000000 - Intentando reservar una entrada.";
-				  mes "Despues de hacer la reservacion, tiene que seleccionar 'Entrar a la instancia' desde el menu si desea entrar a "+.@ins_name_mes$+".";
+				  mes "Despues de hacer la reserva, tiene que seleccionar 'Entrar a la instancia' desde el menú si desea entrar a "+.@ins_name_mes$+".";
 				  announce "[ "+strcharinfo(0)+" ] lider de la party [ "+.@party_name$+" ] se están preparando para el desafio en Dragon's Terminus.",bc_all,0x00ff99;
                   close;
                 case 2:
@@ -495,12 +495,12 @@ alexa_field,237,243,5	script	Ansem#alexa2	740,{ //entrada dungeon
 				}
 				if (.@ins_term_check2 == 2) {//cooldown de 3 dias aun esta corriendo y el dungeon ya expiro
 					mes "[ "+.@ins_name_mes$+" ]";
-                    mes "El tiempo limite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se re estabilize antes de volver a entrar";
+                    mes "El tiempo límite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se restabilize antes de volver a entrar";
 					close;
 				}
 				if (term_entertime != .@ins_term_entertime) { //cooldown de 3 dias sigue corriendo y la instancia que comenzo el cooldown no corresponde a la instancia que se intenta entrar
 				mes "[ "+.@ins_name_mes$+" ]";
-					mes "El tiempo limite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se re estabilize antes de volver a entrar";
+					mes "El tiempo límite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se restabilize antes de volver a entrar";
 					close;
 				}
 				mes "[ "+.@ins_name_mes$+" ]";
@@ -512,14 +512,14 @@ alexa_field,237,243,5	script	Ansem#alexa2	740,{ //entrada dungeon
 			} else if (.@ins_term_check == 2) {
 				if (.@ins_term_check2 == 0 || .@ins_term_check2 == 1) {
 					mes "[ "+.@ins_name_mes$+" ]";
-					mes "El tiempo limite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se re estabilize antes de volver a entrar";
+					mes "El tiempo límite para entrar a la mazmorra ha expirado. Tendrás que esperar 3 días a que todo se restabilize antes de volver a entrar";
 					close;
 				} else if (.@ins_term_check2 == 2) {
 					mes "[ "+.@ins_name_mes$+" ]";
-					mes "Se ha re-establecido el tiempo.";
+					mes "Se ha restablecido el tiempo.";
 					next;
 					mes "[ "+.@ins_name_mes$+" ]";
-					mes "Si deseas entrar nuevamente, habla conmigo denuevo.";
+					mes "Si deseas entrar nuévamente, habla conmigo denuevo.";
 					erasequest 60500;
 					erasequest 60501;
 					set 'ins_term2,0;
@@ -538,12 +538,12 @@ L_Enter:
 	switch(instance_enter(.@md_name$)) {
 	case 3:
 		mes "[ "+.@ins_name_mes$+" ]";
-		mes "A sucedio un error desconocido.";
+		mes "A sucedido un error desconocido.";
 		close;
 	case 2:
         mes "[ "+.@ins_name_mes$+" ]";
 		mes "La instancia  "+ .@ins_name$ +" no existe.";
-		mes "Deberias aceptar la admision antes de entrar.";
+		mes "Deberías aceptar la admisión antes de entrar.";
 		close;
 	case 1:
 		mes "[ "+.@ins_name_mes$+" ]";
