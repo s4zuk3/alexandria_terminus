@@ -51,8 +51,8 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
             case 1:
                 mes .@name$;    
                 mes "Vamos a ver... Necesito:";
-                mes "250 ^008000Used Iron Piece^000000";            
-                mes "100 ^008000Solid Iron Plate^000000";            
+                mes "250 ^008000Used Iron Plate^000000";            
+                mes "100 ^008000Solid Iron Piece^000000";            
                 mes "25 ^008000Fragment^000000";            
                 mes "y 20 ^008000Crystal Fragments^000000 servirán como alimentación.";
                 next;    
@@ -76,8 +76,8 @@ prontera,164,171,5	script	Ansem#alexa	740,{ //plaza de prontera norte
             next;
             mes .@name$;
             mes "Recuerda, necesito lo siguiente:";
-            mes "250 ^008000Used Iron Piece^000000";            
-            mes "100 ^008000Solid Iron Plate^000000";            
+            mes "250 ^008000Used Iron Plate^000000";            
+            mes "100 ^008000Solid Iron Piece^000000";            
             mes "25 ^008000Fragment^000000";            
             mes "y 20 ^008000Crystal Fragments^000000.";
             close;
