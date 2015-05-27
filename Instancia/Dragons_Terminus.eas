@@ -8,7 +8,8 @@
 
 1@term,109,94,5	script	Crystal Buffer#term1	1915,{
 
-        dispbottom "Has obtenido el red buff. (?)";
+        consumeitem 30252; // ITEM que te da por 5 minutos 40% resistencia fuego
+        dispbottom "Has obtenido una gran resistencia al elemento fuego por 5 minutos.";
         end;
 OnInstanceInit:
     initnpctimer;
@@ -25,7 +26,8 @@ OnDisable:
 
 1@term,173,99,5	script	Crystal Buffer#term2	1914,{
 
-        dispbottom "Has obtenido el blue buff. (?)";
+        consumeitem 30253; // ITEM que te da por 5 minutos 40% resistencia agua
+        dispbottom "Has obtenido una gran resistencia al elemento agua por 5 minutos.";
         end;
 OnInstanceInit:
     initnpctimer;
@@ -115,6 +117,8 @@ OnMyMobDead:
     set .@map$, instance_mapname("1@term");
 	set .@mvp_dead, 2 - mobcount(.@map$,instance_npcname("Sign#term")+"::OnMyMobDead");
     if(.@mvp_dead == 2){
+        // COLOCA AQUI EL DROP DEL BLASTOISE/CHARIZARD
+
         stopnpctimer;
         donpcevent instance_npcname("#b_m5_r1")+"::OnDisable";  // eliminar barricadas mvp centro
         donpcevent instance_npcname("#b_m5_d1")+"::OnDisable";  // eliminar barricadas mvp centro
@@ -186,16 +190,39 @@ OnTimer15000:
     mes "[ Dragon's Terminus ]";
     mes "Para continuar debes derrotar al mvp de la derecha o izquierda. Cada uno te abrirá un camino distinto y habilitará el camino al crystal buff correspondiente";
     mes "> Derrotar a los dos y obtener los dos crystales es opcional <";
-     
+    mes "Suerte, la necesitarás.";
     close;
 
 OnInstanceInit:
-    spmonster instance_mapname("1@term"),149,153,"Terminus",2977,2,instance_npcname("Informacion#term")+"::OnMyMobDead",12;
+    set .GID, spmonster (instance_mapname("1@term"),149,153,"Terminus",2977,2,instance_npcname("Informacion#term")+"::OnMyMobDead",11,instance_npcname("Informacion#term")+"::OnMobEvent");
     end;
 OnDisable:
     killmonster instance_mapname("1@term"),instance_npcname("Informacion#term")+"::OnMyMobDead";
     end;
+OnMobEvent:
+    end;
+OnMobEvent1:
+    end;
+OnMobEvent2:
+    end;
+OnMobEvent3:
+    end;
+OnMobEvent4:
+    end;
+OnMobEvent5:
+    end;
+OnMobEvent6:
+    end;
+OnMobEvent7:
+    end;
+OnMobEvent8:
+    end;
+OnMobEvent9:
+    end;
+OnMobEvent10:
+    end;
 OnMyMobDead:
+    set .GID,0;
     announce "[ "+strcharinfo(0)+" ] y su party [ "+ getpartyname(getcharid(1)) +" ] han completado Dragon's Terminus.",bc_all,0xFFBF00;
     donpcevent instance_npcname("#warpterm")+"::OnEnable"; 
     donpcevent instance_npcname("#mob_term")+"::OnDisable"; 
